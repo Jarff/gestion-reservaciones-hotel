@@ -5,6 +5,8 @@
  */
 package modelo;
 
+import java.lang.reflect.InvocationTargetException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
@@ -22,6 +24,14 @@ public class Usuario extends Modelo<Usuario>{
         String[] fillable = {"id", "nombre", "email", "correo", "password"};
         this.setTable("usuarios");
         this.setFillable(fillable);
+    }
+    
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public void setNombre(String nombre) {
@@ -50,5 +60,18 @@ public class Usuario extends Modelo<Usuario>{
 
     public String getPassword() {
         return password;
+    }
+    
+    public Usuario authenticate(String correo, String password) throws SQLException, NoSuchMethodException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException{
+        ArrayList<Usuario> usuarios = this.where("correo", correo).where("password", password).get();
+        if(usuarios.toArray().length > 0){
+            this.setId(usuarios.get(0).getId());
+            this.setNombre(usuarios.get(0).getNombre());
+            this.setCorreo(usuarios.get(0).getCorreo());
+            this.setPassword(usuarios.get(0).getPassword());
+            return this;
+        }else{
+            return null;
+        }
     }
 }

@@ -6,6 +6,7 @@
 package vista;
 
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
@@ -17,6 +18,14 @@ public class LoginVista extends javax.swing.JFrame {
 
     public JButton getConfirmar() {
         return confirmar;
+    }
+
+    public JDialog getAlert() {
+        return alert;
+    }
+
+    public void setAlert(JDialog alert) {
+        this.alert = alert;
     }
 
     public void setConfirmar(JButton confirmar) {
@@ -55,6 +64,8 @@ public class LoginVista extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        alert = new javax.swing.JDialog();
+        jLabel6 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -63,6 +74,31 @@ public class LoginVista extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         password = new javax.swing.JPasswordField();
         confirmar = new javax.swing.JButton();
+
+        alert.setSize(new java.awt.Dimension(400, 300));
+
+        jLabel6.setText("Error, usuario invalido");
+
+        javax.swing.GroupLayout alertLayout = new javax.swing.GroupLayout(alert.getContentPane());
+        alert.getContentPane().setLayout(alertLayout);
+        alertLayout.setHorizontalGroup(
+            alertLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(alertLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(alertLayout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jLabel6)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
+        alertLayout.setVerticalGroup(
+            alertLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(alertLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(alertLayout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jLabel6)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -190,6 +226,7 @@ public class LoginVista extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JDialog alert;
     private javax.swing.JButton confirmar;
     private javax.swing.JTextField correo;
     private javax.swing.JLabel jLabel1;
@@ -197,6 +234,7 @@ public class LoginVista extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPasswordField password;
     // End of variables declaration//GEN-END:variables
 }

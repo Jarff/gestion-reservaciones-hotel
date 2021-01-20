@@ -12,7 +12,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JLabel;
 import modelo.Usuario;
+import vista.HomeVista;
 import vista.LoginVista;
 
 /**
@@ -22,28 +24,33 @@ import vista.LoginVista;
 public class ControlUsuario implements ActionListener {
     private Usuario usuario;
     private LoginVista loginVista;
+    private HomeVista homeVista;
    
     
-    public ControlUsuario(LoginVista loginVista){
+    public ControlUsuario(LoginVista loginVista, HomeVista homeVista){
         this.usuario = new Usuario();
         this.loginVista = loginVista;
+        this.homeVista = homeVista;
         
         this.loginVista.getConfirmar().addActionListener(this);
     }
     
     public void actionPerformed(ActionEvent evento){
         if(this.loginVista.getConfirmar() == evento.getSource()){
-            System.out.println(this.loginVista.getCorreo().getText());
-            System.out.println(this.loginVista.getPassword().getText());
+            String correo = this.loginVista.getCorreo().getText();
+            String password = this.loginVista.getPassword().getText();
             try {
-                ArrayList<Usuario> usuarios = this.usuario.where("correo", loginVista.getCorreo().getText()).where("password", loginVista.getPassword().getText()).get();
-                if(usuarios.toArray().length > 0){
-                    this.usuario = usuarios.get(0);
-                    System.out.println("Usuario encontrado");
-                    System.out.println("Nombre: " + this.usuario.getNombre());
-                    System.out.println("Correo: " + this.usuario.getCorreo());
+                if(this.usuario.authenticate(correo, password) != null){
+                    //Logeado
+                    this.loginVista.setVisible(false); //Ocultamos vista para mostrar la vista que require autenticacion
+                    this.homeVista.setLocationRelativeTo(this.loginVista);
+                    this.homeVista.setVisible(true);
+                    //Actualizamos los textos que necesitan mostrar los datos del usuario
+                    this.mostrarInfoUsuario();
                 }else{
-                    System.out.println("Usuario invalido");
+                    this.loginVista.getAlert().setTitle("Error");
+                    this.loginVista.getAlert().setLocationRelativeTo(null);
+                    this.loginVista.getAlert().setVisible(true);
                 }
             } catch (SQLException ex) {
                 Logger.getLogger(ControlUsuario.class.getName()).log(Level.SEVERE, null, ex);
@@ -59,5 +66,9 @@ public class ControlUsuario implements ActionListener {
                 Logger.getLogger(ControlUsuario.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+    }
+    
+    public void mostrarInfoUsuario(){
+        this.homeVista.getNombre_usuario().setText(this.usuario.getNombre());
     }
 }
