@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 import java.lang.reflect.InvocationTargetException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import modelo.Cliente;
 import modelo.Usuario;
 import vista.CheckInVista;
 /**
